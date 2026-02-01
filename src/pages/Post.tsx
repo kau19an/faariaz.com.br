@@ -84,25 +84,25 @@ export default function Post() {
       />
 
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 origin-left z-60"
+        className="fixed top-0 left-0 right-0 h-1 bg-blue-600 dark:bg-yellow-400 origin-left z-60"
         style={{ scaleX }}
       />
 
-      <article className="min-h-screen pt-0 md:pt-4 pb-12 px-0 md:px-6 mx-auto w-full max-w-5xl">
-        <nav className="flex items-center justify-center md:justify-normal flex-wrap gap-2 text-sm text-gray-500 mb-4 px-4 md:px-0 max-w-3xl mx-auto">
+      <article className="pt-0 md:pt-4 pb-12 px-0 md:px-6 mx-auto w-full max-w-5xl">
+        <nav className="flex items-center flex-wrap gap-2 text-sm text-gray-900/50 dark:text-zinc-300/50 mb-4 max-w-3xl mx-auto">
           <Link
             to={blogRootLink}
-            className="p-1.5 hover:bg-gray-200 rounded-lg transition-colors text-gray-600"
+            className="p-1.5 hover:bg-gray-300/25 dark:hover:bg-zinc-700/30 hover:text-blue-600 dark:hover:text-yellow-400 rounded-lg transition-colors text-gray-900/50 dark:text-zinc-300/50"
           >
             <Home size={16} />
           </Link>
 
-          <ChevronRight size={14} className="opacity-40" />
+          <ChevronRight size={14} className="opacity-50 hover:opacity-75" />
 
           {post.categories ? (
             <Link
               to={categoryLink}
-              className="font-medium hover:text-blue-600 transition-colors hover:underline decoration-blue-500/30 underline-offset-4"
+              className="font-medium hover:text-blue-600 dark:hover:text-yellow-400 transition-colors hover:underline underline-offset-4"
             >
               {t(`categories.${post.categories.slug}`)}
             </Link>
@@ -110,9 +110,9 @@ export default function Post() {
             <span />
           )}
 
-          <ChevronRight size={14} className="opacity-40" />
+          <ChevronRight size={14} className="opacity-50 hover:opacity-75" />
 
-          <span className="text-gray-900 font-semibold truncate max-w-37.5 md:max-w-xs block">
+          <span className="text-gray-600 hover:text-gray-800/65 dark:text-zinc-300 dark:hover:text-zinc-400/95 transition-colors font-semibold truncate max-w-37.5 md:max-w-xs block">
             {post.title}
           </span>
         </nav>
@@ -123,36 +123,35 @@ export default function Post() {
           className="flex flex-col items-center"
         >
           {post.cover_image && (
-            <div className="w-full max-w-5xl mb-4">
-              <div className="w-full aspect-video md:aspect-21/9 md:rounded-3xl overflow-hidden shadow-none md:shadow-2xl md:shadow-gray-200 ring-0 md:ring-1 ring-gray-900/5 relative group">
+            <div className="w-full max-w-5xl mb-3">
+              <div className="w-full aspect-video md:aspect-21/9 rounded-3xl overflow-hidden shadow-lg md:shadow-6xl shadow-gray-800/25 md:shadow-gray-800/60 dark:shadow-gray-200/15 md:dark:shadow-gray-200/5 relative group">
                 <img
                   src={post.cover_image}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-none md:rounded-3xl pointer-events-none"></div>
               </div>
             </div>
           )}
 
           {post.cover_image && post.image_caption && (
             <div className="w-full max-w-2xl text-center mb-4">
-              <p className="text-xs md:text-sm text-gray-400 italic">
+              <p className="text-xs md:text-sm text-gray-400 dark:text-zinc-500 transition-colors italic">
                 {post.image_caption}
               </p>
             </div>
           )}
 
           <div className="w-full max-w-2xl px-4 md:px-0">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight md:leading-tight text-left">
+            <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-3 leading-tight md:leading-tight text-left">
               {post.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-8 border-b border-gray-300">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-zinc-200/70 mb-8 pb-8 border-b border-gray-300 dark:border-zinc-700 transition-colors">
               <span className="flex items-center gap-2">
                 <Calendar size={16} className="text-blue-500" />
                 {formatDate(post.created_at, currentLang)}
               </span>
-              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
+              <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-zinc-600 transition-colors"></span>
               <span className="flex items-center gap-2">
                 <Clock size={16} className="text-purple-500" />
                 {readingMinutes} {minLabel} {readLabel}
@@ -161,7 +160,7 @@ export default function Post() {
 
             <div
               ref={contentRef}
-              className="prose prose-lg max-w-none text-gray-700 leading-relaxed 
+              className="prose prose-lg max-w-none text-zinc-800 dark:text-gray-200 transition-colors leading-relaxed 
   prose-headings:font-bold prose-a:text-blue-600 prose-img:rounded-2xl prose-img:shadow-lg
   prose-code:before:content-none prose-code:after:content-none
   prose-pre:bg-transparent prose-pre:p-0 prose-pre:m-0"

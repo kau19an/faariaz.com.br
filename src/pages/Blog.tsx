@@ -63,35 +63,30 @@ export default function Blog() {
     <>
       <PageHead titleKey="title.blog" />
 
-      <div className="min-h-screen pt-5 px-6 max-w-4xl mx-auto">
+      <div className="px-2 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-10 text-center"
+          className="mb-4"
         >
-          <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-gray-700">
+          <h1 className="text-4xl font-extrabold bg-clip-text text-neutral-800 dark:text-gray-100 transition-colors">
             {t("title.blog")}
           </h1>
         </motion.div>
 
         {loading ? (
-          <div className="space-y-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="h-40 w-70 bg-gray-200 rounded-2xl animate-pulse"
-              />
-            ))}
-          </div>
+          <p className="text-neutral-800 dark:text-gray-100">
+            {t("ui.loading")}
+          </p>
         ) : (
           <motion.div
             variants={containerVars}
             initial="hidden"
             animate="visible"
-            className="grid gap-6"
+            className="grid gap-6 sm:grid-cols-2"
           >
             {posts.length === 0 ? (
-              <p className="text-center text-gray-500">
+              <p className="text-neutral-800 dark:text-gray-100">
                 {t("ui.no_posts_yet")}
               </p>
             ) : (
@@ -103,12 +98,12 @@ export default function Blog() {
                   <motion.article
                     key={post.id}
                     variants={itemVars}
-                    className="group relative bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+                    className="group relative bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-2xl p-6 hover:shadow-xl hover:shadow-zinc-800/5 dark:hover:shadow-gray-100/5 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
                   >
                     {post.cover_image && (
                       <Link
                         to={getLocalizedPath(`blog/${post.slug}`, currentLang)}
-                        className="block mb-6 -mx-6 -mt-6 overflow-hidden aspect-video border-b border-gray-100"
+                        className="block mb-6 -mx-6 -mt-6 overflow-hidden aspect-video"
                       >
                         <img
                           src={post.cover_image}
@@ -124,7 +119,7 @@ export default function Blog() {
                             `blog/topic/${post.categories.slug}`,
                             currentLang,
                           )}
-                          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-bold uppercase tracking-wider hover:bg-blue-200 transition-colors"
+                          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-600 dark:bg-zinc-50/70 dark:text-zinc-900 text-xs font-bold uppercase tracking-wider hover:bg-blue-200 dark:hover:bg-zinc-300 transition-colors"
                         >
                           <IconMapper
                             name={post.categories.icon}
@@ -135,7 +130,7 @@ export default function Blog() {
                       </div>
                     )}
 
-                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-zinc-300 transition-colors mb-3">
                       <span className="flex items-center gap-1">
                         <Calendar size={14} />
                         {formatDate(post.created_at, currentLang)}
@@ -146,18 +141,18 @@ export default function Blog() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 mb-2 group-hover:text-blue-600 dark:group-hover:text-yellow-400 transition-colors">
                       {post.title}
                     </h2>
 
-                    <p className="text-gray-600 line-clamp-3 mb-4">
+                    <p className="text-zinc-500 dark:text-zinc-400 line-clamp-3 mb-4">
                       {removeMarkdown(post.content)}
                     </p>
 
                     <Link
                       to={getLocalizedPath(`blog/${post.slug}`, currentLang)}
                       state={{ from: location }}
-                      className="inline-flex items-center text-blue-600 font-medium cursor-pointer"
+                      className="inline-flex items-center text-blue-600 dark:text-yellow-400 font-medium cursor-pointer"
                     >
                       {t("button.read_more")}{" "}
                       <ArrowRight

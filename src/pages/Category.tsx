@@ -45,11 +45,13 @@ export default function Category() {
   }, [slug]);
 
   if (loading)
-    return <div className="p-20 text-center animate-pulse">{t("ui.loading")}</div>;
+    return (
+      <div className="p-20 text-center animate-pulse">{t("ui.loading")}</div>
+    );
 
   if (!categoryInfo)
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6 pt-20">
+      <div className="flex flex-col items-center justify-center text-center px-6 pt-20">
         <AlertCircle size={64} className="text-gray-300 mb-4" />
         <h2 className="text-3xl font-bold mb-2 text-gray-900">
           {t("ui.topic_not_found")}
@@ -69,22 +71,24 @@ export default function Category() {
     <>
       <PageHead titleKey={`${categoryName}`} />
 
-      <div className="min-h-screen pt-4 px-6 max-w-4xl mx-auto">
+      <div className="w-full md:max-w-3xl px-2 mx-auto">
         <Link
           to={getLocalizedPath("blog", currentLang)}
-          className="inline-flex items-center text-gray-500 hover:text-blue-600 mb-8 transition-colors"
+          className="inline-flex items-center text-gray-500 dark:text-gray-300 hover:text-blue-600 dark:hover:text-yellow-400 mb-8 transition-colors"
         >
           <ArrowLeft size={20} className="mr-2" />
           {t("button.return")}
         </Link>
 
-        <div className="flex items-center gap-4 mb-8 bg-gray-100 p-6 rounded-3xl">
-          <div className="p-4 bg-white rounded-2xl text-blue-600 shadow-sm">
+        <div className="flex items-center gap-4 mb-6 bg-gray-100 dark:bg-zinc-500/15 p-6 rounded-3xl transition-colors">
+          <div className="p-4 bg-white dark:bg-zinc-300/15 rounded-2xl text-blue-600 dark:text-white transition-colors shadow-sm">
             <IconMapper name={categoryInfo.icon} className="w-8 h-8" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">{categoryName}</h1>
-            <p className="text-gray-500 mt-1">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+              {categoryName}
+            </h1>
+            <p className="text-gray-500 dark:text-gray-300/70 mt-1">
               {posts.length} {posts.length === 1 ? "post" : "posts"}
             </p>
           </div>
@@ -98,37 +102,37 @@ export default function Category() {
             </h3>
           </div>
         ) : (
-          <div className="grid gap-6">
+          <div className="grid gap-6 sm:grid-cols-2">
             {posts.map((post) => (
               <motion.article
                 key={post.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="group bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-lg transition-all hover:-translate-y-1"
+                className="group relative bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-2xl p-6 hover:shadow-xl hover:shadow-zinc-800/5 dark:hover:shadow-gray-100/5 transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               >
                 <div className="flex flex-col gap-2">
                   {post.cover_image && (
                     <Link
                       to={getLocalizedPath(`blog/${post.slug}`, currentLang)}
-                      className="block mb-6 -mx-6 -mt-6 overflow-hidden aspect-video border-b border-gray-100"
+                      className="block mb-6 -mx-6 -mt-6 overflow-hidden aspect-video"
                     >
                       <img
                         src={post.cover_image}
-                        className="w-full h-full rounded-t-2xl object-cover transform hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
                       />
                     </Link>
                   )}
 
-                  <h2 className="text-xl font-bold group-hover:text-blue-500 transition-colors text-gray-900">
+                  <h2 className="text-2xl font-bold text-zinc-800 dark:text-zinc-300 mb-2 group-hover:text-blue-600 dark:group-hover:text-yellow-400 transition-colors">
                     {post.title}
                   </h2>
-                  <p className="text-gray-600 line-clamp-2 mb-4 text-sm">
+                  <p className="text-zinc-500 dark:text-zinc-400 line-clamp-3 mb-4">
                     {removeMarkdown(post.content)}
                   </p>
                   <Link
                     to={getLocalizedPath(`blog/${post.slug}`, currentLang)}
                     state={{ from: location }}
-                    className="text-blue-600 font-medium inline-flex items-center text-sm"
+                    className="inline-flex items-center text-blue-600 dark:text-yellow-400 font-medium cursor-pointer"
                   >
                     {t("button.read_more")}{" "}
                     <ArrowRight
